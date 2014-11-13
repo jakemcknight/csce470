@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 
@@ -9,11 +10,17 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
+    <style>
+      html { height: 100% }
+      body { height: 100%; background-color:#CCC }
+      #map-outer {height: 100%; border: 8px solid #CCC; margin-bottom: 20px; background-color:#FFF }
+      #map-container { height: 500px; width: 100%; }
+      @media all and (max-width: 768px) {
+        #map-outer  { height: 650px }
+      }
     </style>
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/">
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFGo-YK7nafcmjuljLEwPy7r0Eu5iFf1E">
     </script>
     <script type="text/javascript">
       function initialize() {
@@ -21,20 +28,27 @@
           center: { lat: 30.61, lng: -96.34},
           zoom: 8
         };
-        var map = new google.maps.Map(document.getElementById('map-canvas'),
+        var map = new google.maps.Map(document.getElementById('map-container'),
             mapOptions);
       }
       google.maps.event.addDomListener(window, 'load', initialize);
     </script>
   </head>
   <body>
-  <img src="static/logo1.png" height="25%">
-  <img src="static/banner.png" width="800"/>
-  <br/>
-  <label id="zip-label">
-    Enter your zipcode
-    <input>
-  </label>
-  <div id="map-canvas" class="container"></div>
+  <div class="container">
+    <div class="row" id="map-outer">
+      <div class="col-md-2">
+        <img src="static/logo1.png" width="75%" height="100%">
+        <label id="zip-label">
+          Enter your zipcode
+          <input width="60%">
+        </label>
+      </div>
+      <div class="col-md-10" >
+        <img src="static/banner.png" width="100%"/>
+        <div id="map-container"></div>
+      </div>
+    </div>
+  </div>
   </body>
 </html>
