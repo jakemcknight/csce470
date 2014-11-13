@@ -7,7 +7,7 @@ function initialize() {
         center: myLatlng,
         zoom: 8
     };
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
+    var map = new google.maps.Map(document.getElementById('map-container'),
         mapOptions);
     var marker1 = new google.maps.Marker({
         position: myLatlng,
