@@ -21,6 +21,22 @@ class Hw1(object):
         return [str(word) for word in unicode_word ]
     #return a list of words
     @staticmethod
+    def word_freq(word,a_list_of_words):
+        count =0
+        for line in a_list_of_words:
+            if (line == word):
+                count=count+1       
+        return count
+    def word_check(good , list2):
+        count =0
+        for line in list2:
+            for word in good:
+                if (line ==word):
+                    count=count+1
+        return count
+
+    
+    @staticmethod
     def stopword(a_list_of_words):
         stopword = []
         for line in open('stop_word','r'):
@@ -108,7 +124,8 @@ if __name__ == '__main__':
         bad_list.append(line.rstrip('\n'))
 
     print bad_list
-    
+    # frequecny function just for fun
+    print hw.word_freq("good",good_list)
     # here we need to check reviews against bad and good list and run naive bayes
                     
 
