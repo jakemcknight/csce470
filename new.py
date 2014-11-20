@@ -77,7 +77,7 @@ if __name__ == '__main__':
     for line in reviewdict:
         count=1
         index=0
-        goal = 10  # YO WHATS UP I AM GOAL IF YOU CHANGE ME YOU GET MORE WORDS 
+        goal = 30  # YO WHATS UP I AM GOAL IF YOU CHANGE ME YOU GET MORE WORDS 
         
         tokens= hw.tokenize1(reviewdict[line][0])
         append_review=[]
@@ -109,6 +109,7 @@ if __name__ == '__main__':
     # THIS DICTONARY STORE THE REVIEW ID AS THE KEY THIS IS UNIQUE
     # reviewdict[key][0] this is the text review of the n closest words to bathroom
     # reviewdict[key][1] this is the buisness id this will be needed later when we fetch the location and buisness name
+    # reviewdict[key][2] indicates if the bathroom is good or bad
     # if you wish to look for more words on either side the variable goal will need to be changed it is marked 
 
 
@@ -122,13 +123,41 @@ if __name__ == '__main__':
     
     for line in open("bad.txt"):
         bad_list.append(line.rstrip('\n'))
+    for k in reviewdict:
+        reviewdict[k].append(0)
 
     print bad_list
     # frequecny function just for fun
     print hw.word_freq("good",good_list)
     # here we need to check reviews against bad and good list and run naive bayes
-                    
 
+    #for k in reviewdict:
+        #for j in reviewidct
+    good_total = len(good_list)
+    bad_total = len(bad_list)
+    #add a scoring index to the array [2]
+    
+    for k in reviewdict:
+        for j in reviewdict[k][0]:
+            for h in good_list:
+                if(j == h):
+                    reviewdict[k][2] = reviewdict[k][2] +float((float(1)/float(good_total)))
+            for h in bad_list:
+                if(j == h):
+                    reviewdict[k][2] = reviewdict[k][2] - float((float(1)/float(bad_total)))
+
+
+    for k in reviewdict:
+        print reviewdict[k]
+    c = 0
+    for k in bad_list:
+        c = 0
+        for z in bad_list:
+            if(k == z):
+                c = c + 1
+        if(c > 1):
+            print k
+                
 
         
 
