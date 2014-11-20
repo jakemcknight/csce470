@@ -124,7 +124,8 @@ if __name__ == '__main__':
     for line in open("bad.txt"):
         bad_list.append(line.rstrip('\n'))
     for k in reviewdict:
-        reviewdict[k].append(0)
+        reviewdict[k].append(1)
+        reviewdict[k].append(1)
 
     print bad_list
     # frequecny function just for fun
@@ -141,10 +142,25 @@ if __name__ == '__main__':
         for j in reviewdict[k][0]:
             for h in good_list:
                 if(j == h):
-                    reviewdict[k][2] = reviewdict[k][2] +float((float(1)/float(good_total)))
+                    reviewdict[k][2] = reviewdict[k][2] * float((float(1)/float(good_total)))
             for h in bad_list:
                 if(j == h):
-                    reviewdict[k][2] = reviewdict[k][2] - float((float(1)/float(bad_total)))
+                    reviewdict[k][3] = reviewdict[k][3] * -1*float((float(1)/float(bad_total)))
+
+    for k in reviewdict:
+        if(reviewdict[k][2] == 1):
+            if(reviewdict[k][3] == 1):
+                reviewdict[k].append("Neutral")
+            else:
+                reviewdict[k].append("Bad")
+        elif(reviewdict[k][3] == 1):
+            reviewdict[k].append("Good")
+        else:
+            if(reviewdict[k][2] > abs(reviewdict[k][3])):
+                reviewdict[k].append("Good")
+            else:
+                reviewdict[k].append("Bad")
+        
 
 
     for k in reviewdict:
