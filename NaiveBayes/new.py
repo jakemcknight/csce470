@@ -23,21 +23,22 @@ class Hw1(object):
         unicode_word = re.findall(r'\w+', string.lower())
         return [str(word) for word in unicode_word]
 
-    #return a list of words
+    # return a list of words
     @staticmethod
     def word_freq(word, a_list_of_words):
         count = 0
         for line in a_list_of_words:
-            if (line == word):
-                count = count + 1
+            if line == word:
+                count += 1
         return count
 
+    @staticmethod
     def word_check(good, list2):
         count = 0
         for line in list2:
             for word in good:
-                if (line == word):
-                    count = count + 1
+                if line == word:
+                    count += 1
         return count
 
 
@@ -49,13 +50,13 @@ class Hw1(object):
         new_list = [word for word in a_list_of_words if word not in stopword]
         return new_list
 
-    #or alternatively use new_list=filter(lambda x: x not in stopword, a_list_of_words)
-    #return a list of words
+    # or alternatively use new_list=filter(lambda x: x not in stopword, a_list_of_words)
+    # return a list of words
     @staticmethod
     def stemming(a_list_of_words):
         stems = [stem(word) for word in a_list_of_words]
         return stems
-        #return a list of words
+        # return a list of words
 
 
 if __name__ == '__main__':
@@ -71,16 +72,14 @@ if __name__ == '__main__':
         words = hw.tokenize(cur_review)
         count = 0
         for word in words:
-            count = count + 1
-            if (word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms"):
-                #need tof etch words before and after
+            count += 1
+            if word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms":
+                # need tof etch words before and after
                 string = " REVIEW "
-                array = []
-                array.append(cur_review['text'])
-                array.append(cur_review['business_id'])
+                array = [cur_review['text'], cur_review['business_id']]
                 reviewdict[cur_review['review_id']] = array
 
-    #THIS PEICE OF CODE GOES THROUGH AND TOKENIZE OUR TEXT REVIEW TO RETURN N WORDS IN AN ARRAY
+    # THIS PEICE OF CODE GOES THROUGH AND TOKENIZE OUR TEXT REVIEW TO RETURN N WORDS IN AN ARRAY
     for line in reviewdict:
         count = 1
         index = 0
@@ -91,19 +90,19 @@ if __name__ == '__main__':
         for word in tokens:
             count1 = 0
             count2 = 1
-            if (word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms"):
+            if word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms":
                 index = count
-                while ( len(tokens) - (index + count1) > 0 and count1 < 3):
+                while len(tokens) - (index + count1) > 0 and count1 < 3:
                     append_review.append(tokens[index + count1])
-                    count1 = count1 + 1
-                    goal = goal - 1
-                while ( index - count2 >= 0 and goal > 0 and len(tokens) > index - count2 ):
+                    count1 += 1
+                    goal -= 1
+                while goal > 0 and 0 <= count2 - index < len(tokens):
                     append_review.append(tokens[index - count2])
-                    count2 = count2 + 1
-                    goal = goal - 1
+                    count2 += 1
+                    goal -= 1
                 reviewdict[line][0] = append_review
                 break
-            count = count + 1
+            count += 1
 
     for line in reviewdict:
         print " "
@@ -112,13 +111,12 @@ if __name__ == '__main__':
         print reviewdict[line][1]
         print" "
 
-        # REVIEW DICT ---NOTE THIS STRUCT IS A DICTONARY
+    # REVIEW DICT ---NOTE THIS STRUCT IS A DICTONARY
     # THIS DICTONARY STORE THE REVIEW ID AS THE KEY THIS IS UNIQUE
     # reviewdict[key][0] this is the text review of the n closest words to bathroom
     # reviewdict[key][1] this is the buisness id this will be needed later when we fetch the location and buisness name
     # reviewdict[key][2] indicates if the bathroom is good or bad
     # if you wish to look for more words on either side the variable goal will need to be changed it is marked 
-
 
     # started building good/bad list needs to be added too 
     good_list = []
@@ -139,31 +137,31 @@ if __name__ == '__main__':
     print hw.word_freq("good", good_list)
     # here we need to check reviews against bad and good list and run naive bayes
 
-    #for k in reviewdict:
-    #for j in reviewidct
+    # for k in reviewdict:
+    # for j in reviewidct
     good_total = len(good_list)
     bad_total = len(bad_list)
-    #add a scoring index to the array [2]
+    # add a scoring index to the array [2]
 
     for k in reviewdict:
         for j in reviewdict[k][0]:
             for h in good_list:
-                if (j == h):
-                    reviewdict[k][2] = reviewdict[k][2] * float((float(1) / float(good_total)))
+                if j == h:
+                    reviewdict[k][2] *= float((float(1) / float(good_total)))
             for h in bad_list:
-                if (j == h):
+                if j == h:
                     reviewdict[k][3] = reviewdict[k][3] * -1 * float((float(1) / float(bad_total)))
 
     for k in reviewdict:
-        if (reviewdict[k][2] == 1):
-            if (reviewdict[k][3] == 1):
+        if reviewdict[k][2] == 1:
+            if reviewdict[k][3] == 1:
                 reviewdict[k].append("Neutral")
             else:
                 reviewdict[k].append("Bad")
-        elif (reviewdict[k][3] == 1):
+        elif reviewdict[k][3] == 1:
             reviewdict[k].append("Good")
         else:
-            if (reviewdict[k][2] > abs(reviewdict[k][3])):
+            if reviewdict[k][2] > abs(reviewdict[k][3]):
                 reviewdict[k].append("Good")
             else:
                 reviewdict[k].append("Bad")
@@ -174,7 +172,7 @@ if __name__ == '__main__':
     for k in bad_list:
         c = 0
         for z in bad_list:
-            if (k == z):
-                c = c + 1
-        if (c > 1):
+            if k == z:
+                c += 1
+        if c > 1:
             print k

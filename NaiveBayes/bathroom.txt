@@ -1,0 +1,8 @@
+bathroom
+bathrooms
+restroom
+restrooms
+toilet
+toilets
+washroom
+washrooms

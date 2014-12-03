@@ -1,6 +1,6 @@
 __author__ = 'Miles Hickman'
 
-from flask import Flask, render_template, abort
+from flask import Flask, render_template, abort, jsonify
 
 app = Flask(__name__)
 
