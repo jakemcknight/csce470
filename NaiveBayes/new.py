@@ -3,7 +3,7 @@ import re
 from stemming.porter2 import stem
 
 
-class Hw1(object):
+class Helper(object):
     def __init__(self):
         pass
 
@@ -61,15 +61,15 @@ class Hw1(object):
 
 if __name__ == '__main__':
     # run this script to get top twenty bigrams
-    hw = Hw1()
+    help_me = Helper()
     count = 0
     words = []
     bath_set = []
     bathdict = {}
     reviewdict = {}
     for line in open('./review_KcSJUq1kwO8awZRMS6Q49g.txt', 'r'):
-        cur_review = hw.read_line(line)
-        words = hw.tokenize(cur_review)
+        cur_review = help_me.read_line(line)
+        words = help_me.tokenize(cur_review)
         count = 0
         for word in words:
             count += 1
@@ -85,7 +85,7 @@ if __name__ == '__main__':
         index = 0
         goal = 30  # YO WHATS UP I AM GOAL IF YOU CHANGE ME YOU GET MORE WORDS 
 
-        tokens = hw.tokenize1(reviewdict[line][0])
+        tokens = help_me.tokenize1(reviewdict[line][0])
         append_review = []
         for word in tokens:
             count1 = 0
@@ -134,7 +134,7 @@ if __name__ == '__main__':
 
     print bad_list
     # frequecny function just for fun
-    print hw.word_freq("good", good_list)
+    print help_me.word_freq("good", good_list)
     # here we need to check reviews against bad and good list and run naive bayes
 
     # for k in reviewdict:
