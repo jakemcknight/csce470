@@ -44,26 +44,36 @@ function get_data() {
   function addMarker() {
         $.getJSON("/api/get_all",function(data){
         $.each(data,function(key,value){
-           var x=value.latitude
-           var y=value.longitude
-           var string = value.name
-           var string1= "is a sexy motherfucker"
-           var contentString = '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">'+string+'</h1>'+
-          '<div id="bodyContent">'+string1+
-          '</div>'+
-          '</div>';
-          var infowindow = new google.maps.InfoWindow({
-          content: contentString
-      });
-          myLatlng = new google.maps.LatLng(x,y);
-          var marker = new google.maps.Marker({
-          position: myLatlng,
-          map: map,
-          title: string
-      });
+            var x=value.latitude;
+            var y=value.longitude;
+            var string = value.name;
+            var string1= "is a sexy motherfucker";
+            var contentString = '<div id="content">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h1 id="firstHeading" class="firstHeading">'+string+'</h1>'+
+            '<div id="bodyContent">'+string1+
+            '</div>'+
+            '</div>';
+            var infowindow = new google.maps.InfoWindow({
+            content: contentString
+            });
+            myLatlng = new google.maps.LatLng(x,y);
+            if(value.good > value.bad) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: string,
+                    icon: "../static/goodouthouse.png"
+                });
+            } else {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    title: string,
+                    icon: "../static/badouthouse.png"
+                });
+            }
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
       });
