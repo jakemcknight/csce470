@@ -16,5 +16,9 @@ def get_all_bathrooms():
         businesses = (json.loads(f.readline()))
     return jsonify(businesses)
 
+@app.route('/api/get_zip/<zip_code>')
+def get_by_zip(zip_code):
+    return "not implemented yet lol"+" "+zip_code
+
 if __name__ == '__main__':
     app.run(debug=True)
