@@ -67,42 +67,38 @@ if __name__ == '__main__':
     bath_set = []
     bathdict = {}
     reviewdict = {}
-    for line in open('./review_KcSJUq1kwO8awZRMS6Q49g.txt', 'r'):
+    bathroom_words = []
+    with open("bathroom.txt", 'r') as f:
+        for line in f:
+            bathroom_words.append(line.split('\n')[0])
+
+    for line in open('bathroom_review.json', 'r'):
         cur_review = help_me.read_line(line)
         words = help_me.tokenize(cur_review)
         count = 0
         for word in words:
             count += 1
-            if word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms":
-                # need tof etch words before and after
-                string = " REVIEW "
-                array = [cur_review['text'], cur_review['business_id']]
-                reviewdict[cur_review['review_id']] = array
+            string = " REVIEW "
+            array = [cur_review['text'], cur_review['business_id']]
+            reviewdict[cur_review['review_id']] = array
 
     # THIS PEICE OF CODE GOES THROUGH AND TOKENIZE OUR TEXT REVIEW TO RETURN N WORDS IN AN ARRAY
     for line in reviewdict:
         count = 1
         index = 0
-        goal = 30  # YO WHATS UP I AM GOAL IF YOU CHANGE ME YOU GET MORE WORDS 
+        goal = 8  # YO WHATS UP I AM GOAL IF YOU CHANGE ME YOU GET MORE WORDS
 
         tokens = help_me.tokenize1(reviewdict[line][0])
         append_review = []
-        for word in tokens:
-            count1 = 0
-            count2 = 1
-            if word == "bathroom" or word == "restroom" or word == "restrooms" or word == "toliet" or word == "washrooms" or word == "restrooms" or word == "bathrooms":
-                index = count
-                while len(tokens) - (index + count1) > 0 and count1 < 3:
-                    append_review.append(tokens[index + count1])
-                    count1 += 1
-                    goal -= 1
-                while goal > 0 and 0 <= count2 - index < len(tokens):
-                    append_review.append(tokens[index - count2])
-                    count2 += 1
-                    goal -= 1
-                reviewdict[line][0] = append_review
-                break
-            count += 1
+        for i, word in enumerate(tokens):
+            if any([x == word for x in bathroom_words]):
+                start = 0
+                end = len(tokens)
+                if not (i-goal) < start:
+                    start = i-goal
+                if not i+goal > end:
+                    end = i+goal
+                reviewdict[line][0] = tokens[start:end]
 
     for line in reviewdict:
         print " "
@@ -176,3 +172,34 @@ if __name__ == '__main__':
                 c += 1
         if c > 1:
             print k
+    business_dict = {}
+    with open("bathroom_business.json", 'r') as f:
+        for line in f:
+            business_obj = json.loads(line)
+            business_obj["reviews"] = []
+            business_dict[business_obj["business_id"]] = business_obj
+
+    for item in reviewdict.values():
+        business_dict[item[1]]["reviews"].append(item)
+
+    for item in business_dict.values():
+        bad_count, good_count, neut_count = 0, 0, 0
+        if not len(item["reviews"]):
+            del business_dict[item["business_id"]]
+            continue
+        for review in item["reviews"]:
+            if review[-1] == 'Bad':
+                bad_count += 1
+            if review[-1] == 'Good':
+                good_count += 1
+            if review[-1] == 'Neutral':
+                neut_count += 1
+        bad_score = bad_count / len(item["reviews"])
+        good_score = good_count / len(item["reviews"])
+        neut_score = neut_count / len(item["reviews"])
+        item["good"] = good_score
+        item["bad"] = bad_score
+        item["neutral"] = neut_score
+
+    with open("../scored_review.json", 'w') as f:
+        json.dump(business_dict, f)
