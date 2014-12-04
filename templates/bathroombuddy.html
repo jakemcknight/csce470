@@ -1,57 +1,50 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script
+<head>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-         <script>
-        $(document).ready(function(){
-          $("button").click(function(){
-            $.getJSON("/api/get_all",function(result){
-              $.each(result, function(i, field){
-                $("div").append(field + " ");
-              });
-            });
-          });
-        });
-        </script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <style>
-      html { height: 100% }
-      body { height: 100%; background-color:#CCC }
-      #map-outer {height: 100%; border: 8px solid #CCC; margin-bottom: 20px; background-color:#FFF }
-      #map-container { height: 500px; width: 100%; }
-      @media all and (max-width: 768px) {
-        #map-outer  { height: 650px }
-      }
+        html { height: 100% }
+        body { height: 100%; background-color:#CCC }
+        #map-outer {height: 100%; border: 8px solid #CCC; margin-bottom: 20px; background-color:#FFF }
+        #map-container { height: 500px; width: 100%; }
+        @media all and (max-width: 768px) {
+        #map-outer { height: 650px }
+        }
     </style>
+
     <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFGo-YK7nafcmjuljLEwPy7r0Eu5iFf1E">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFGo-YK7nafcmjuljLEwPy7r0Eu5iFf1E">
     </script>
-    <script src="../static/map.js">
+    <script src="../static/map.js" ></script>
+    <script>
+        initialize();
     </script>
-  </head>
-  <body>
-  <div class="container">
+
+
+</head>
+<body>
+<div class="container">
     <div class="row" id="map-outer">
-         <form data-bind="submit: addTask">
-            <div class="col-md-2">
-              <input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>
-              <img src="../static/logo1.png" width="75%" height="100%">
-              <input width="60%">
-            </div>
-           <button>Get JSON data</button>
+        <div class="col-md-2">
+            <input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>
+            <img src="../static/logo1.png" width="75%" height="100%">
+            <input width="60%">
+        </div>
+        <button>Get JSON data</button>
         <div></div>
-      <div class="col-md-10" >
-        <img src="../static/banner.png" width="100%"/>
-        <div id="map-container"></div>
-          <div data-bind="latitude: lat, longitude:lng, map:map, selected:selected">
-      </div>
+        <div class="col-md-10">
+            <img src="../static/banner.png" width="100%"/>
+
+            <div id="map-container"></div>
+        </div>
     </div>
-  </div>
-  </body>
+</div>
+</body>
 </html>
