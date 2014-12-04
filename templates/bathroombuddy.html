@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-
+         <script>
+        $(document).ready(function(){
+          $("button").click(function(){
+            $.getJSON("/api/get_all",function(result){
+              $.each(result, function(i, field){
+                $("div").append(field + " ");
+              });
+            });
+          });
+        });
+        </script>
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
 
@@ -28,16 +38,18 @@
   <body>
   <div class="container">
     <div class="row" id="map-outer">
-      <div class="col-md-2">
-        <img src="../static/logo1.png" width="75%" height="100%">
-        <label id="zip-label">
-          Enter your zipcode
-          <input width="60%">
-        </label>
-      </div>
+         <form data-bind="submit: addTask">
+            <div class="col-md-2">
+              <input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>
+              <img src="../static/logo1.png" width="75%" height="100%">
+              <input width="60%">
+            </div>
+           <button>Get JSON data</button>
+        <div></div>
       <div class="col-md-10" >
         <img src="../static/banner.png" width="100%"/>
         <div id="map-container"></div>
+          <div data-bind="latitude: lat, longitude:lng, map:map, selected:selected">
       </div>
     </div>
   </div>
