@@ -12,11 +12,9 @@ def index():
 
 @app.route('/api/get_all')
 def get_all_bathrooms():
-    businesses = []
-    with open(path.join('NaiveBayes','bathroom_business.json')) as f:
-        for line in f:
-            businesses.append(json.loads(line))
-    return jsonify(results=businesses)
+    with open('scored_review.json') as f:
+        businesses = (json.loads(f.readline()))
+    return jsonify(businesses)
 
 if __name__ == '__main__':
     app.run(debug=True)
