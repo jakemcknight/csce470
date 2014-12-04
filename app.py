@@ -18,7 +18,13 @@ def get_all_bathrooms():
 
 @app.route('/api/get_zip/<zip_code>')
 def get_by_zip(zip_code):
-    return "not implemented yet lol"+" "+zip_code
+    with open('scored_review.json') as f:
+        businesses = (json.loads(f.readline()))
+    in_zip = []
+    for val in businesses.values():
+        if zip_code in val["full_address"]:
+            in_zip.append(val)
+    return jsonify(results=in_zip)
 
 if __name__ == '__main__':
     app.run(debug=True)
