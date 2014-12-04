@@ -1,6 +1,3 @@
-/**
- * Created by Alex on 11/13/2014.
- */
 function initialize() {
     var myLatlng = new google.maps.LatLng(30.61,-96.34);
     var mapOptions = {
@@ -13,17 +10,17 @@ function initialize() {
         position: myLatlng,
         map: map,
         title: 'Hello World!',
-        icon: "static/badouthouse.png"
+        icon: "../static/badouthouse.png"
     });
     var marker = new google.maps.Marker({
         position: {lat:31.61,lng:-96.34},
         map: map,
         title: 'Hello World!',
-        icon: "static/goodouthouse.png"
+        icon: "../static/goodouthouse.png"
     });
     var infowindow = new google.maps.InfoWindow();
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.open(map,myLatlng);
+        infowindow.open(marker,myLatlng);
     });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
