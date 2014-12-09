@@ -41,8 +41,8 @@ function get_data() {
 });
 });
 }
-  function addMarker() {
-        $.getJSON("/api/get_all",function(data){
+function addMarker(search) {
+        $.getJSON("/api/search/zip/"+search,function(data){
         $.each(data,function(key,value){
             var x=value.latitude;
             var y=value.longitude;
@@ -81,4 +81,4 @@ function get_data() {
       });
       });  //end of json
 
-  };
+};

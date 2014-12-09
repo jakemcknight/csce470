@@ -29,7 +29,7 @@ def get_by_zip(key, search):
             res = val.get('full_address')
             if search in res:
                 in_zip.append(val)
-    return jsonify(count=len(in_zip), results=in_zip)
+    return jsonify(in_zip)
 
 if __name__ == '__main__':
     app.run(debug=True)
