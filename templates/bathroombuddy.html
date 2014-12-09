@@ -48,10 +48,20 @@
         <div class="col-md-8">
             <img src="../static/banner1.png" width="40%" class="center-block img-responsive"/>
             <input id="zip" placeholder="Enter Zipcode!" class="center-block"/>
-            <button id="submit-search" type="button" class="btn btn-md btn-primary center-block"
-                    onclick="addMarker($('#zip').val());">
-                Click Me for a place to Poop!
-            </button>
+            <div class="center-block">
+                <div class="col-md-6">
+                    <button id="submit-search" type="button" class="btn btn-md btn-primary btn-block"
+                            onclick="addMarker($('#zip').val());">
+                        Click Me for a place to Poop!
+                    </button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-md btn-danger btn-block"
+                            onclick="addMarker('%20');">
+                        Show All Toilets
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="col-md-2">
             <img src="../static/bb.png" class="img-responsive"/>
