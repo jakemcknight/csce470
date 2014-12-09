@@ -23,12 +23,14 @@ function addMarker(search) {
             var x=value.latitude;
             var y=value.longitude;
             var string = value.name;
-            var string1= "is a sexy motherfucker";
+            var string1= value.full_address
+            var string2 = " Yelp rates this bathroom "+value.stars+" stars "
             var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
             '<h1 id="firstHeading" class="firstHeading">'+string+'</h1>'+
             '<div id="bodyContent">'+string1+
+            '<br />'+string2+
             '</div>'+
             '</div>';
             var infowindow = new google.maps.InfoWindow({
@@ -52,11 +54,13 @@ function addMarker(search) {
                 });
                 markers.push(marker);
             }
+            map.setCenter(myLatlng)
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
+        map.setCenter(marker.getPosition)
       });
 
       });
       });  //end of json
 
-};
+  };
