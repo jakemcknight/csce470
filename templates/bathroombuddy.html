@@ -15,7 +15,8 @@
         }
 
         body {
-            height: 100%
+            height: 100%;
+            background: #696969;
         }
 
         #map-container {
@@ -41,14 +42,14 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row">
+    <div class="row-fluid">
         <div class="col-md-2">
             <img src="../static/bb.png" class="img-responsive"/>
-            <!--<input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>-->
-            <!--<button onclick="addMarker()">Click Me for a place to Poop!</button>-->
         </div>
         <div class="col-md-8">
-            <img src="../static/banner1.png" width="60%" class="center-block img-responsive"/>
+            <img src="../static/banner1.png" width="40%" class="center-block img-responsive"/>
+            <input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!" class="center-block"/>
+            <button onclick="addMarker()" type="button" class="btn btn-md btn-primary center-block">Click Me for a place to Poop!</button>
         </div>
         <div class="col-md-2">
             <img src="../static/bb.png" class="img-responsive"/>
