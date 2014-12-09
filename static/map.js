@@ -57,7 +57,7 @@ function addMarker(search) {
             map.setCenter(myLatlng)
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
-        map.setCenter(marker.getPosition)
+        map.setCenter(marker.getPosition())
       });
 
       });

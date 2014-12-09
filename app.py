@@ -31,7 +31,7 @@ def get_by_zip(key, search):
             in_zip.append(val)
         if key.lower() == "zip":
             res = val.get('full_address')
-            if any([x.lower() in res.lower() for x in search_list]):
+            if all([x.lower() in res.lower() for x in search_list]):
                 in_zip.append(val)
     return jsonify(results=in_zip)
 
