@@ -14,7 +14,7 @@ def index():
 def get_all_bathrooms():
     with open('scored_review.json') as f:
         businesses = (json.loads(f.readline()))
-    return jsonify(businesses)
+    return jsonify(results=businesses)
 
 @app.route('/api/search/<key>/<search>')
 def get_by_zip(key, search):
@@ -27,9 +27,9 @@ def get_by_zip(key, search):
             in_zip.append(val)
         if key.lower() == "zip":
             res = val.get('full_address')
-            if search in res:
+            if search.lower() in res.lower():
                 in_zip.append(val)
-    return jsonify(in_zip)
+    return jsonify(results=in_zip)
 
 if __name__ == '__main__':
     app.run(debug=True)

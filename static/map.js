@@ -1,5 +1,8 @@
 var map
 var myLatlng
+
+var markers = [];
+
 function initialize() {
    myLatlng = new google.maps.LatLng(30.61,-96.34);
     var mapOptions = {
@@ -8,42 +11,15 @@ function initialize() {
     };
    map = new google.maps.Map(document.getElementById('map-container'),
         mapOptions);
-    var marker1 = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        title: 'Hello World!',
-        icon: "../static/badouthouse.png"
-    });
-    var marker = new google.maps.Marker({
-        position: {lat:31.61,lng:-96.34},
-        map: map,
-        title: 'Hello World!',
-        icon: "../static/goodouthouse.png"
-    });
 }
 google.maps.event.addDomListener(window, 'load', initialize);
-//console.log("you dawg i heard you like maps")
-// var marker5 = new google.maps.Marker({
-//        position: {lat:31.69,lng:-99.34},
-//        map: map,
-//        title: 'Hello!',
-//        icon: "../static/goodouthouse.png"
-//    });
-function get_data() {
-    console.log("test")
-    $(document).ready(function(){
-    $("button").click(function(){
-    $.getJSON("/api/get_all",function(result){
-    $.each(result, function(i, field){
-    console.log(result)
-});
-});
-});
-});
-}
+
 function addMarker(search) {
-        $.getJSON("/api/search/zip/"+search,function(data){
-        $.each(data,function(key,value){
+    for(var i=0; i < markers.length; i++){
+        markers[i].setMap(null);
+    }
+    $.getJSON("/api/search/zip/"+search,function(data){
+        $.each(data.results,function(key,value){
             var x=value.latitude;
             var y=value.longitude;
             var string = value.name;
@@ -66,6 +42,7 @@ function addMarker(search) {
                     title: string,
                     icon: "../static/goodouthouse.png"
                 });
+                markers.push(marker);
             } else {
                 var marker = new google.maps.Marker({
                     position: myLatlng,
@@ -73,6 +50,7 @@ function addMarker(search) {
                     title: string,
                     icon: "../static/badouthouse.png"
                 });
+                markers.push(marker);
             }
       google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map,marker);
