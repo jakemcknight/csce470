@@ -10,40 +10,52 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     <style>
-        html { height: 100% }
-        body { height: 100%; background-color:#CCC }
-        #map-outer {height: 100%; border: 8px solid #CCC; margin-bottom: 20px; background-color:#FFF }
-        #map-container { height: 500px; width: 100%; }
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%
+        }
+
+        #map-container {
+            height: 500px;
+            width: 100%;
+        }
+
         @media all and (max-width: 768px) {
-        #map-outer { height: 650px }
+            #map-outer {
+                height: 650px
+            }
         }
     </style>
 
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFGo-YK7nafcmjuljLEwPy7r0Eu5iFf1E">
     </script>
-    <script src="../static/map.js" ></script>
+    <script src="../static/map.js"></script>
     <script>
         initialize();
     </script>
 
 </head>
 <body>
-<div class="container">
-    <div class="row" id="map-outer">
+<div class="container-fluid">
+    <div class="row">
         <div class="col-md-2">
-            <input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>
-            <img src="../static/logo1.png" width="75%" height="100%">
-            <input width="60%">
+            <img src="../static/bb.png" width="100%"/>
+            <!--<input data-bind="value: newTaskTitle" placeholder="Enter Zipcode!"/>-->
+            <!--<button onclick="addMarker()">Click Me for a place to Poop!</button>-->
         </div>
-        <button onclick="addMarker()">Click Me for a place to Poop!</button>
-
-        <div></div>
-        <div class="col-md-10">
-            <img src="../static/banner.png" width="100%"/>
-
-            <div id="map-container"></div>
+        <div class="col-md-8">
+            <img src="../static/banner1.png" width="50%" align="middle"/>
         </div>
+        <div class="col-md-2">
+            <img src="../static/bb.png" width="100%"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="map-container"></div>
     </div>
 </div>
 </body>
