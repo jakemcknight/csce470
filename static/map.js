@@ -42,7 +42,7 @@ function addMarker(search) {
                     position: myLatlng,
                     map: map,
                     title: string,
-                    icon: "../static/goodouthouse.png"
+                    icon: "../static/good_br.png"
                 });
                 markers.push(marker);
             } else {
@@ -50,7 +50,7 @@ function addMarker(search) {
                     position: myLatlng,
                     map: map,
                     title: string,
-                    icon: "../static/badouthouse.png"
+                    icon: "../static/bad_br.png"
                 });
                 markers.push(marker);
             }
